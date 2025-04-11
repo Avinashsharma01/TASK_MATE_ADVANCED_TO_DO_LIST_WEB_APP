@@ -11,9 +11,10 @@ const TaskItem = ({ task }) => {
   };
 
   const handleDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this task?')) {
-      await removeTask(task._id);
-    }
+    await removeTask(task._id);
+    // if (window.confirm('Are you sure you want to delete this task?')) {
+    //   await removeTask(task._id);
+    // }
   };
 
   // Format the date to a readable string

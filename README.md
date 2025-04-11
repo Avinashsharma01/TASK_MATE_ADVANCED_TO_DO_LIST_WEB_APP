@@ -2,7 +2,8 @@
 
 Task Mate is a full-stack web application for managing your tasks efficiently. It provides user authentication, task management, search, and filtering functionality with a clean, modern interface.
 
-![Task Mate Screenshot](https://via.placeholder.com/800x450?text=Task+Mate+Screenshot)
+![Task Mate Screenshot](client/public/images/TASK_MATE_ADVANCED_TO_DO_LIST_WEB_APP.png)
+
 
 ## Features
 
