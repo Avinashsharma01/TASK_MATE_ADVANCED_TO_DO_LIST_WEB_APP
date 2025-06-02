@@ -2,6 +2,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { getTasks, createTask, updateTask, deleteTask } from "../services/api";
+import reminderService from "../services/reminderService";
 
 const TaskContext = createContext();
 
@@ -111,12 +112,64 @@ export const TaskProvider = ({ children }) => {
             tasks.map((task) => task.category).filter(Boolean)
         );
         return Array.from(uniqueCategories);
-    };
+    }; // Initialize reminder service
+    useEffect(() => {
+        // Keep track of initialization state
+        let isInitialized = false;
+
+        const initializeReminders = async () => {
+            // Only initialize once with tasks present
+            if (!isInitialized && tasks.length > 0) {
+                console.log(
+                    "Initializing reminder service with tasks:",
+                    tasks.length
+                );
+                isInitialized = true;
+
+                // Request notification permission
+                const permissionGranted =
+                    await reminderService.requestPermission();
+                console.log(
+                    "Notification permission granted:",
+                    permissionGranted
+                );
+
+                if (permissionGranted) {
+                    // Start reminder service with a function that will always return the latest tasks
+                    reminderService.start(() => {
+                        console.log(
+                            "Reminder service accessing tasks:",
+                            tasks.length
+                        );
+                        return tasks;
+                    });
+                } else {
+                    console.log(
+                        "Reminders disabled: notification permission not granted"
+                    );
+                }
+            }
+        };
+
+        initializeReminders();
+
+        // Clean up reminder service on unmount
+        return () => {
+            console.log("Cleaning up reminder service");
+            reminderService.stop();
+        };
+    }, [tasks]);
 
     // Initial fetch
     useEffect(() => {
         fetchTasks();
     }, [searchTerm, categoryFilter]);
+
+    // Enable reminders
+    const enableReminders = async () => {
+        const granted = await reminderService.requestPermission();
+        return granted;
+    };
 
     const value = {
         tasks,
@@ -132,6 +185,7 @@ export const TaskProvider = ({ children }) => {
         toggleTaskCompletion,
         getUsedCategories,
         fetchTasks,
+        enableReminders,
     };
 
     return (

@@ -36,7 +36,7 @@ export const createTask = async (req, res) => {
       ...req.body,
       userId: req.userId // Add user ID
     });
-    
+
     const savedTask = await newTask.save();
     res.status(201).json(savedTask);
   } catch (error) {
@@ -47,15 +47,15 @@ export const createTask = async (req, res) => {
 // Get a task by ID
 export const getTaskById = async (req, res) => {
   try {
-    const task = await Task.findOne({ 
+    const task = await Task.findOne({
       _id: req.params.id,
       userId: req.userId // Only allow access to user's own tasks
     });
-    
+
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
     }
-    
+
     res.status(200).json(task);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -65,19 +65,34 @@ export const getTaskById = async (req, res) => {
 // Update a task
 export const updateTask = async (req, res) => {
   try {
+    // Handle partial reminder updates differently
+    if (req.body['reminder.notified'] !== undefined) {
+      // Special case for just updating the notified flag
+      const updatedTask = await Task.findOneAndUpdate(
+        {
+          _id: req.params.id,
+          userId: req.userId // Only allow update to user's own tasks
+        },
+        { $set: { 'reminder.notified': req.body['reminder.notified'] } },
+        { new: true, runValidators: true }
+      );
+      return res.status(200).json(updatedTask);
+    }
+
+    // Normal update for other cases
     const updatedTask = await Task.findOneAndUpdate(
-      { 
+      {
         _id: req.params.id,
         userId: req.userId // Only allow update to user's own tasks
-      }, 
-      req.body, 
+      },
+      req.body,
       { new: true, runValidators: true }
     );
-    
+
     if (!updatedTask) {
       return res.status(404).json({ message: 'Task not found' });
     }
-    
+
     res.status(200).json(updatedTask);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -87,15 +102,15 @@ export const updateTask = async (req, res) => {
 // Delete a task
 export const deleteTask = async (req, res) => {
   try {
-    const task = await Task.findOneAndDelete({ 
+    const task = await Task.findOneAndDelete({
       _id: req.params.id,
       userId: req.userId // Only allow deletion of user's own tasks
     });
-    
+
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
     }
-    
+
     res.status(200).json({ message: 'Task deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });

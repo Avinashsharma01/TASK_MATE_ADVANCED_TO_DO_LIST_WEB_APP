@@ -20,6 +20,22 @@ const taskSchema = new mongoose.Schema({
   completed: {
     type: Boolean,
     default: false
+  }, reminder: {
+    date: {
+      type: Date,  // Use Date type explicitly
+      get: function (date) {
+        // When retrieving, ensure we get a proper date
+        return date ? new Date(date) : null;
+      }
+    },
+    enabled: {
+      type: Boolean,
+      default: false
+    },
+    notified: {
+      type: Boolean,
+      default: false
+    }
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
