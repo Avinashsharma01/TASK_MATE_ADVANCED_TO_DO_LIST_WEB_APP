@@ -2,43 +2,48 @@
 
 Task Mate is a full-stack web application for managing your tasks efficiently. It provides user authentication, task management, search, and filtering functionality with a clean, modern interface.
 
+![Task Mate Screenshot](./client/public/images/landingPage.png)
 ![Task Mate Screenshot](./client/public/images/task_mate_screenshot.png)
-
 
 ## Features
 
-- **User Authentication**:
-  - Secure registration and login
-  - JWT-based authentication
-  - User-specific task management
+-   **User Authentication**:
 
-- **Task Management**:
-  - Create, read, update, and delete tasks
-  - Mark tasks as completed
-  - Task details include title, description, due date, and category
+    -   Secure registration and login
+    -   JWT-based authentication
+    -   User-specific task management
 
-- **Search and Filtering**:
-  - Search tasks by title or description
-  - Filter tasks by predefined categories
+-   **Task Management**:
 
-- **User Interface**:
-  - Clean, responsive design
-  - Mobile-friendly layout
-  - Modern styling with TailwindCSS
+    -   Create, read, update, and delete tasks
+    -   Mark tasks as completed
+    -   Task details include title, description, due date, and category
+
+-   **Search and Filtering**:
+
+    -   Search tasks by title or description
+    -   Filter tasks by predefined categories
+
+-   **User Interface**:
+    -   Clean, responsive design
+    -   Mobile-friendly layout
+    -   Modern styling with TailwindCSS
 
 ## Tech Stack
 
 ### Frontend
-- React with Vite
-- TailwindCSS for styling
-- Axios for API requests
-- React Context API for state management
+
+-   React with Vite
+-   TailwindCSS for styling
+-   Axios for API requests
+-   React Context API for state management
 
 ### Backend
-- Node.js with Express
-- MongoDB with Mongoose ODM
-- JWT for authentication
-- bcryptjs for password hashing
+
+-   Node.js with Express
+-   MongoDB with Mongoose ODM
+-   JWT for authentication
+-   bcryptjs for password hashing
 
 ## Project Structure
 
@@ -50,31 +55,35 @@ Task Mate is a full-stack web application for managing your tasks efficiently. I
 ```
 
 For detailed documentation:
-- [Client Documentation](client/README.md)
-- [Server Documentation](server/README.md)
+
+-   [Client Documentation](client/README.md)
+-   [Server Documentation](server/README.md)
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- MongoDB (local installation or MongoDB Atlas)
+-   Node.js (v14 or higher)
+-   MongoDB (local installation or MongoDB Atlas)
 
 ### Installation and Setup
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd task-mate
 ```
 
 2. Set up the backend:
+
 ```bash
 cd server
 npm install
 ```
 
 3. Create a `.env` file in the server directory with the following:
+
 ```
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/taskMateDB
@@ -82,6 +91,7 @@ JWT_SECRET=your_jwt_secret_key_here
 ```
 
 4. Set up the frontend:
+
 ```bash
 cd ../client
 npm install
@@ -90,12 +100,14 @@ npm install
 ### Running the Application
 
 1. Start the backend server:
+
 ```bash
 cd server
 npm run dev
 ```
 
 2. In a new terminal, start the frontend development server:
+
 ```bash
 cd client
 npm run dev
@@ -114,14 +126,15 @@ npm run dev
 
 The backend provides a RESTful API:
 
-- **Authentication**: `/api/users/register`, `/api/users/login`, `/api/users/profile`
-- **Tasks**: `/api/tasks` with GET, POST, PUT, DELETE operations
+-   **Authentication**: `/api/users/register`, `/api/users/login`, `/api/users/profile`
+-   **Tasks**: `/api/tasks` with GET, POST, PUT, DELETE operations
 
 All task endpoints are protected and require authentication.
 
 ## Deployment
 
 ### Backend
+
 ```bash
 cd server
 npm run build
@@ -129,6 +142,7 @@ npm start
 ```
 
 ### Frontend
+
 ```bash
 cd client
 npm run build
@@ -147,4 +161,4 @@ This project is open source and available under the MIT License.
 3. Make your changes
 4. Commit your changes (`git commit -m 'Add some amazing feature'`)
 5. Push to the branch (`git push origin feature/amazing-feature`)
-6. Open a pull request 
+6. Open a pull request
